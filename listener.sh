@@ -9,11 +9,12 @@ while true; do
 		mpv /home/pi/notif.mp3
 
 		# read the folder to play
-		folder=$(echo $qr | cut -d':' -f 2)
+		echo $qr
+		folder=$(echo $qr | cut -c 9-)
 
 		if [[ "$folder" == "STOP" ]]; then
 			echo "STOP"
-		elif [[ "$folder" ~= "^http.*" ]]; then
+		elif [[ "$folder" =~ ^http.* ]]; then
 			echo "Got a YTM link : " $folder
 			# use MPV to play YouTube Music link, expect a cookie to be placed in user's home
 			mpv --no-video --ytdl-raw-options="cookies=~/cookies.txt" $folder &
